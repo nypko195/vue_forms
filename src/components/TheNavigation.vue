@@ -16,9 +16,6 @@
 
 
 <style scoped>
-   nav {   
-}
-
 ul {
    list-style: none;
    margin: 0;
@@ -28,11 +25,6 @@ ul {
    align-items: center;
    padding: 20px 0 0 40px;
 }
-
-li {  
-   
-}
-
 a { 
    text-decoration: none;     
    cursor: pointer;

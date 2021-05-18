@@ -1,20 +1,20 @@
 <template>
    <form action="">
       <h2>Оплата</h2>
-      <div>
+      <div class="form-control">
          <label for="">Имя на карте</label>
          <input type="text" placeholder="Konstantin Ivanov">
       </div>
-      <div>
+      <div class="form-control">
          <label for="">Номер карты</label>
          <input type="text" placeholder="ХХХХ ХХХХ ХХХХ ХХХХ">         
       </div>
       <div class="string">
-         <div>
+         <div class="form-control">
             <label for="">Срок</label>
             <input type="text" placeholder="MM/YY">
          </div>
-         <div>
+         <div class="form-control">
             <label for="">CVV</label>
             <input type="text">
          </div>
@@ -54,7 +54,13 @@
       box-sizing: border-box;
       border-radius: 5px;
       padding: 10px;
-   }  
+   }
+   .string .form-control input {
+      width: 95px;      
+   } 
+   .string .form-control:last-child {
+      margin-left: 30px;   
+   }   
    button {
       background: rgba(25, 165, 39, 0.8);
       border-radius: 5px;
@@ -65,7 +71,8 @@
    }
    .string {
       display: flex;
-      flex-direction: row;      
+      flex-direction: row;
+      
    }
-   
+
 </style>

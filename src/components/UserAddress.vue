@@ -1,16 +1,18 @@
 <template>
    <form action="">
       <h2>Информация для доставки</h2>
-      <div>
+      <div class="form-control">
          <label for="">Получатель</label>
          <input type="text" placeholder="ФИО">
       </div>
-      <div>
+      <div class="form-control">
          <label for="">Адрес</label>
          <input type="text" placeholder="Город">
-         <input type="text" placeholder="Адрес">       
+         <input type="text" placeholder="Адрес"> 
+         <div>     
          <input type="text" placeholder="Страна">
-         <input type="text" placeholder="Индекс">         
+         <input type="text" placeholder="Индекс">
+         </div>          
       </div>
       <button>Продолжить</button>
    </form>
@@ -27,10 +29,10 @@
       line-height: 31px;
       color: #101D94;
    }
-   div {
+   .form-control {
       margin: 15px 0 15px 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: column;      
       align-content: left;
    }
    label {      
@@ -46,12 +48,13 @@
       border: 1px solid #DEDCDC;
       box-sizing: border-box;
       border-radius: 5px;
-      padding: 10px;
-   }
-   input:nth-child(1) {
+      padding: 10px;      
+   }   
+   input:first-child { 
+      margin-right: 20px;     
       max-width: 180px;
    }
-   input:last-child {
+   input:last-child {      
       max-width: 120px;
    }
    button {
