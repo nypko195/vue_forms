@@ -24,7 +24,7 @@
 </template>
 
 <style scoped>
-   form { 
+   form {        
       text-align: left;     
       padding: 0 40.5px;          
    }

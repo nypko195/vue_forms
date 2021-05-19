@@ -4,17 +4,20 @@
    <router-view></router-view>
       <user-address></user-address>
       <user-payment></user-payment>
+      <thank-user></thank-user>
    </base-container>
 </template>
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
 import BaseContainer from './components/BaseContainer.vue';
+import ThankUser from './components/ThankUser.vue';
 
 export default {
    components: {
       BaseContainer,      
-      TheNavigation,     
+      TheNavigation,
+      ThankUser,     
    }
 }
 </script>

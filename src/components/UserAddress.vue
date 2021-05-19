@@ -1,25 +1,81 @@
 <template>
-   <form action="">
+   <form @submit.prevent="sumbitForm">
       <h2>Информация для доставки</h2>
-      <div class="form-control">
-         <label for="">Получатель</label>
-         <input type="text" placeholder="ФИО">
+      <div class="form-control delivery__user"
+      :class="{invalid: userNameValidation === 'invalid'}">
+         <label for="user-name">Получатель</label>
+         <input
+         id="user-name"
+         name="user-name"
+         v-model.trim="userName"
+         @blur="validateInput"
+         type="text" placeholder="ФИО">
       </div>
-      <div class="form-control">
-         <label for="">Адрес</label>
-         <input type="text" placeholder="Город">
-         <input type="text" placeholder="Адрес"> 
+      <div class="form-control delivery__address"
+      :class="{invalid: userAddressValidation === 'invalid'}">
+         <label for="user-address">Адрес</label>
+         <input type="text"
+         name="sity"
+         v-model="userSity"
+         placeholder="Город"
+         @blur="validateInputAddress">
+         <input type="text"
+         name="address"
+         v-model="userAddress"
+         placeholder="Адрес"
+         @blur="validateInputAddress"> 
          <div>     
-         <input type="text" placeholder="Страна">
-         <input type="text" placeholder="Индекс">
+         <input type="text"
+         name="country"
+         v-model="userCountry"
+         placeholder="Страна"
+         @blur="validateInputAddress">
+         <input type="text"
+         name="index"
+         v-model="userIndex"
+         placeholder="Индекс"
+         @blur="validateInputAddress">
          </div>          
       </div>
-      <button>Продолжить</button>
+      <button class="delivery__btn">Продолжить</button>
    </form>
 </template>
 
+<script>
+export default {
+   data() {
+      return {
+         userName: '',
+         userNameValidation: 'pending',
+         userSity: '',
+         userAddress: '',
+         userCountry: '',
+         userIndex: '',
+         userAddressValidation: 'pending',
+         
+      }
+   },
+   methods: {
+      validateInput() {
+         if(this.userName === '') {
+            this.userNameValidation = 'invalid';
+         } else {
+            this.userNameValidation = 'valid'
+         }
+      },
+      validateInputAddress() {
+         if(this.userSity === '' || this.userAddress === '' || this.userCountry === '' || this.userIndex === '') {
+            this.userAddressValidation = 'invalid';
+         } else {
+            this.userAddressValidation = 'valid';
+         }
+      }
+   }
+}
+</script>
+
 <style scoped>
-   form {      
+   form {        
       text-align: left;    
       padding: 0 40.5px;          
    }
@@ -34,7 +90,7 @@
       display: flex;
       flex-direction: column;      
       align-content: left;
-   }
+   }   
    label {      
       text-align: left;
       font-weight: 300;
@@ -44,20 +100,24 @@
    }
    input {
       margin-top: 10px;
+      width: 100%;
       background: #FFFFFF;
       border: 1px solid #DEDCDC;
       box-sizing: border-box;
       border-radius: 5px;
       padding: 10px;      
-   }   
-   input:first-child { 
+   } 
+   .form-control.invalid input {
+      border: 2px solid red;
+   }  
+   .delivery__address input:first-child { 
       margin-right: 20px;     
       max-width: 180px;
    }
-   input:last-child {      
+   .delivery__address input:last-child {      
       max-width: 120px;
    }
-   button {
+   .delivery__btn {
       background: rgba(25, 165, 39, 0.8);
       border-radius: 5px;
       text-align: left;

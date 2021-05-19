@@ -1,16 +1,11 @@
 <template>
    <section>      
-      <slot></slot>
+      <slot></slot>      
    </section>
 </template>
 
 <script>
-export default {
-   methods: {
-      // uAdr() {
-      //    if()
-      // }
-   }  
+export default {   
 }
 </script>
 
