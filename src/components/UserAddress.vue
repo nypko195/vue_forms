@@ -56,6 +56,11 @@ export default {
       }
    },
    methods: {
+      // sumbitForm() {
+      //    if(this.userAddressValidation == 'invalid' || this.userAddressValidation == 'invalid') {
+            
+      //    }
+      // },
       validateInput() {
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
