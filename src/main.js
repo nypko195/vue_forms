@@ -8,7 +8,7 @@ import App from './App.vue';
 
 const router = createRouter({
    routes: [
-      { path: '/address', component: UserAddress},
+      { path: '/', component: UserAddress},
       { path: '/payment', component: UserPayment},
    ],
    history: createWebHistory(),

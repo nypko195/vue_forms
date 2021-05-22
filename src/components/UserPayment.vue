@@ -1,20 +1,26 @@
 <template>
-   <form @submit.prevent="sumbitForm">
-      <h2>Оплата</h2>
-      <div class="form-control payment__user"
+   <form 
+   class="payment"
+   @submit.prevent="sumbitForm">
+      <h2 class="payment__title">Оплата</h2>
+      <div class="form__control payment__user"
       :class="{invalid: userPayValidation === 'invalid'}">
-         <label for="user-pay">Имя на карте</label>
+         <label for="user-pay"
+         class="payment__user-lbl pay-lbl">Имя на карте</label>
          <input type="text"
          placeholder="Konstantin Ivanov"
+         class="payment__user-inp pay-inp"
          name="user-pay"
          id="user-pay"
          v-model="userPay"
          @blur="payValidation">
       </div>
-      <div class="form-control payment__card"
+      <div class="form__control payment__card"
       :class="{invalid: userCardValidation === 'invalid'}">
-         <label for="user-card">Номер карты</label>
+         <label for="user-card"
+         class="payment__card-lbl pay-lbl">Номер карты</label>
          <input type="nubmer"
+         class="payment__card-inp pay-inp"
          placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
          name="user-card"
          id="user-card"
@@ -22,20 +28,24 @@
          @blur="cardValidation">         
       </div>
       <div class="payment__info"      >
-         <div class="form-control"
+         <div class="form__control"
          :class="{invalid: userInfoValidation === 'invalid'}">
-            <label for="user-date">Срок</label>
+            <label for="user-date"
+            class="payment__info-lbl pay-lbl">Срок</label>
             <input type="number"
+            class="payment__info-inp pay-inp"
             placeholder="MM/YY"
             name="user-date"
             id="user-date"
             v-model="userDate"
             @blur="infoValidation">
          </div>
-         <div class="form-control"
+         <div class="form__control"
          :class="{invalid: userInfoValidation === 'invalid'}">
-            <label for="user-cvv">CVV</label>
+            <label for="user-cvv"
+            class="payment__info-lbl pay-lbl">CVV</label>
             <input type="number"
+            class="payment__info-inp pay-inp"
             name="user-cvv"
             id="user-cvv"
             v-model="userCvv"
@@ -85,31 +95,31 @@ export default {
 }
 </script>
 
-<style scoped>
-   form {        
+<style>
+   .payment {        
       text-align: left;     
       padding: 0 40.5px;          
    }
-   h2 {
+   .payment__title {
       font-weight: 300;
       font-size: 26px;
       line-height: 31px;
       color: #101D94;
    }
-   div {
+   .form__control {
       margin: 10px 0 10px 0;
       display: flex;
       flex-direction: column;
       align-content: left;
    }
-   label {      
+   .pay-lbl {      
       text-align: left;
       font-weight: 300;
       font-size: 16px;
       line-height: 18px;
       color: #101D94;
    }
-   input {
+   .pay-inp {
       margin-top: 10px;
       background: #FFFFFF;
       border: 1px solid #DEDCDC;
@@ -117,10 +127,10 @@ export default {
       border-radius: 5px;
       padding: 10px;
    }
-   .payment__info .form-control input {
+   .payment__info-inp {
       width: 95px;      
    } 
-   .payment__info .form-control:last-child {
+   .payment__info .form__control:last-child {
       margin-left: 30px;   
    }   
    .payment__btn {
@@ -135,7 +145,7 @@ export default {
       display: flex;
       flex-direction: row;            
    }
-   .form-control.invalid input {
+   .form__control.invalid .pay-inp {
       border: 2px solid red;
    } 
 </style>

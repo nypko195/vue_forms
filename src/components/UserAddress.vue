@@ -1,6 +1,8 @@
 <template>
-   <form @submit.prevent="sumbitForm">
-      <h2>Информация для доставки</h2>
+   <form
+   class="delivery" 
+   @submit.prevent="sumbitForm">
+      <h2 class="delivery__title">Информация для доставки</h2>
       <div class="form-control delivery__user"
       :class="{invalid: userNameValidation === 'invalid'}">
          <label for="user-name">Получатель</label>
@@ -61,7 +63,7 @@ export default {
             
       //    }
       // },
-      validateInput() {
+      validateInput() {         
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
          } else {
@@ -80,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-   form {        
+   .delivery {        
       text-align: left;    
       padding: 0 40.5px;          
    }

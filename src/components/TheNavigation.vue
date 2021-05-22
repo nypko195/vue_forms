@@ -2,7 +2,7 @@
    <nav>
       <ul>
          <li>
-            <router-link to="/address">Доставка</router-link>
+            <router-link to="/">Доставка</router-link>
          </li>
          <li class="gal">
             >
@@ -13,6 +13,7 @@
       </ul>
    </nav>
 </template>
+
 
 
 <style scoped>
