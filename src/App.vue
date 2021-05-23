@@ -9,17 +9,18 @@
 import TheNavigation from './components/TheNavigation.vue';
 import BaseContainer from './components/BaseContainer.vue';
 
+
 export default {
    components: {
       BaseContainer,      
-      TheNavigation,           
+      TheNavigation,     
    }
 }
 </script>
 
 
 <style>
-   body {
+   body {      
       max-width: 1280px;
       margin: 0 auto;
       text-align: center;

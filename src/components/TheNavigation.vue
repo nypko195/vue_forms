@@ -4,7 +4,7 @@
          <li>
             <router-link to="/">Доставка</router-link>
          </li>
-         <li class="gal">
+         <li class="galka">
             >
          </li>
          <li>
@@ -31,7 +31,7 @@ a {
    cursor: pointer;
    color: #979797
 }
-.gal { 
+.galka { 
    margin: 0 15px;  
 }
 .router-link-active {

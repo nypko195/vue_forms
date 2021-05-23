@@ -4,9 +4,11 @@
    @submit.prevent="sumbitForm">
       <h2 class="delivery__title">Информация для доставки</h2>
       <div class="form-control delivery__user"
-      :class="{invalid: userNameValidation === 'invalid'}">
-         <label for="user-name">Получатель</label>
+      :class="{invalidName}">
+         <label for="user-name"
+         class="delivery__user-lbl dlvr-lbl">Получатель</label>
          <input
+         class="delivery__user-inp dlvr-inp"
          id="user-name"
          name="user-name"
          v-model.trim="userName"
@@ -14,55 +16,62 @@
          type="text" placeholder="ФИО">
       </div>
       <div class="form-control delivery__address"
-      :class="{invalid: userAddressValidation === 'invalid'}">
-         <label for="user-address">Адрес</label>
+      :class="{invalidAddress}">
+         <label for="user-address"
+         class="delivery__address-lbl dlvr-lbl">Адрес</label>
          <input type="text"
+         class="delivery__address-inp dlvr-inp"
          name="sity"
          v-model="userSity"
          placeholder="Город"
          @blur="validateInputAddress">
          <input type="text"
+         class="delivery__address-inp dlvr-inp"
          name="address"
          v-model="userAddress"
          placeholder="Адрес"
          @blur="validateInputAddress"> 
          <div>     
          <input type="text"
+         class="delivery__address-inp dlvr-inp"
          name="country"
          v-model="userCountry"
          placeholder="Страна"
          @blur="validateInputAddress">
          <input type="text"
+         class="delivery__address-inp dlvr-inp"
          name="index"
          v-model="userIndex"
          placeholder="Индекс"
          @blur="validateInputAddress">
          </div>          
       </div>
-      <button class="delivery__btn">Продолжить</button>
+      <!-- <button class="delivery__btn"> Продолжить</button> -->
+      <router-link to="/payment" class="delivery__btn">Продолжить</router-link>
    </form>
 </template>
 
 <script>
 export default {
    data() {
-      return {
+      return {                 
          userName: '',
-         userNameValidation: 'pending',
+         userNameValidation: 'pending',         
          userSity: '',
          userAddress: '',
          userCountry: '',
-         userIndex: '',
-         userAddressValidation: 'pending',
-         
+         userIndex: '',         
+         userAddressValidation: 'pending',         
       }
    },
-   methods: {
-      // sumbitForm() {
-      //    if(this.userAddressValidation == 'invalid' || this.userAddressValidation == 'invalid') {
-            
-      //    }
-      // },
+   methods: { 
+      sumbitForm: function() {
+         if(this.userAddressValidation == 'invalid' || 
+         this.userName == '' || 
+         this.userAddressValidation == 'invalid') {
+            return false;
+         }
+      },     
       validateInput() {         
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
@@ -76,17 +85,29 @@ export default {
          } else {
             this.userAddressValidation = 'valid';
          }
-      }
+      },       
+   },
+   computed: {
+      invalidName: function() {
+         return this.userNameValidation == 'invalid';
+      },
+      invalidAddress: function() {
+         return this.userAddressValidation == 'invalid';
+      },      
+   },
+   watch: {      
    }
 }
 </script>
 
-<style scoped>
+
+
+<style>
    .delivery {        
       text-align: left;    
       padding: 0 40.5px;          
    }
-   h2 {
+   .delivery__title {
       font-weight: 300;
       font-size: 26px;
       line-height: 31px;
@@ -98,14 +119,14 @@ export default {
       flex-direction: column;      
       align-content: left;
    }   
-   label {      
+   .dlvr-lbl {      
       text-align: left;
       font-weight: 300;
       font-size: 16px;
       line-height: 18px;
       color: #101D94;
    }
-   input {
+   .dlvr-inp {
       margin-top: 10px;
       width: 100%;
       background: #FFFFFF;
@@ -114,22 +135,31 @@ export default {
       border-radius: 5px;
       padding: 10px;      
    } 
-   .form-control.invalid input {
+   .form-control.invalidName .dlvr-inp,
+   .form-control.invalidAddress .dlvr-inp {
       border: 2px solid red;
-   }  
-   .delivery__address input:first-child { 
+   }   
+   .delivery__address .dlvr-inp:first-child { 
       margin-right: 20px;     
       max-width: 180px;
    }
-   .delivery__address input:last-child {      
+   .delivery__address .dlvr-inp:last-child {      
       max-width: 120px;
    }
    .delivery__btn {
+      display: inline-block;
       background: rgba(25, 165, 39, 0.8);
       border-radius: 5px;
-      text-align: left;
-      color: #fff;
-      padding: 12px 39px;
+      text-align: center;
+      color: #fff;      
       border: #fff;
-   }   
+      text-decoration: none;
+      padding: 12px 0 14px 0;
+      width: 180px;
+   } 
+   .delivery__btn a {
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 500;           
+   }  
 </style>

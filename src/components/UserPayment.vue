@@ -1,10 +1,9 @@
 <template>
-   <form 
-   class="payment"
+   <form class="payment" 
    @submit.prevent="sumbitForm">
       <h2 class="payment__title">Оплата</h2>
       <div class="form__control payment__user"
-      :class="{invalid: userPayValidation === 'invalid'}">
+      :class="{invalidPay}">
          <label for="user-pay"
          class="payment__user-lbl pay-lbl">Имя на карте</label>
          <input type="text"
@@ -16,7 +15,7 @@
          @blur="payValidation">
       </div>
       <div class="form__control payment__card"
-      :class="{invalid: userCardValidation === 'invalid'}">
+      :class="{invalidCard}">
          <label for="user-card"
          class="payment__card-lbl pay-lbl">Номер карты</label>
          <input type="nubmer"
@@ -29,7 +28,7 @@
       </div>
       <div class="payment__info"      >
          <div class="form__control"
-         :class="{invalid: userInfoValidation === 'invalid'}">
+         :class="{invalidInfo}">
             <label for="user-date"
             class="payment__info-lbl pay-lbl">Срок</label>
             <input type="number"
@@ -41,7 +40,7 @@
             @blur="infoValidation">
          </div>
          <div class="form__control"
-         :class="{invalid: userInfoValidation === 'invalid'}">
+         :class="{invalidInfo}">
             <label for="user-cvv"
             class="payment__info-lbl pay-lbl">CVV</label>
             <input type="number"
@@ -52,7 +51,8 @@
             @blur="infoValidation">
          </div>
       </div>
-      <button class="payment__btn">Оплатить</button>
+      <!-- <button class="payment__btn">Оплатить</button> -->
+      <router-link to="/thank" class="payment__btn">Оплатить</router-link>  
    </form>
 </template>
 
@@ -60,6 +60,7 @@
 export default {
    data() {
       return {
+         form: '',
          userPay: '',
          userPayValidation: 'pending',
          userCard: '',
@@ -69,7 +70,7 @@ export default {
          userInfoValidation: 'pending',
       }
    },
-   methods: {      
+   methods: {             
       payValidation() {
          if (this.userPay === '') {
             this.userPayValidation = 'invalid';
@@ -90,6 +91,17 @@ export default {
          } else {
             this.userInfoValidation = 'valid';
          }
+      }
+   },
+   computed: {
+      invalidPay() {
+         return this.userPayValidation == 'invalid';
+      },
+      invalidCard() {
+         return this.userCardValidation == 'invalid';
+      },
+      invalidInfo() {
+         return this.userInfoValidation == 'invalid';
       }
    }
 }
@@ -134,18 +146,28 @@ export default {
       margin-left: 30px;   
    }   
    .payment__btn {
+      display: inline-block;
+      text-decoration: none;
       background: rgba(25, 165, 39, 0.8);
       border-radius: 5px;
-      text-align: left;
+      text-align: center;
       color: #fff;
-      padding: 12px 39px;
+      padding: 12px 0 14px 0;
+      width: 180px;
       border: #fff;
+   }
+   .payment__btn a {
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 500;
    }
    .payment__info {
       display: flex;
       flex-direction: row;            
    }
-   .form__control.invalid .pay-inp {
+   .form__control.invalidPay .pay-inp,
+   .form__control.invalidCard .pay-inp,
+   .form__control.invalidInfo .pay-inp {
       border: 2px solid red;
-   } 
+   }   
 </style>
