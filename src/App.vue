@@ -9,7 +9,6 @@
 import TheNavigation from './components/TheNavigation.vue';
 import BaseContainer from './components/BaseContainer.vue';
 
-
 export default {
    components: {
       BaseContainer,      
@@ -17,7 +16,6 @@ export default {
    }
 }
 </script>
-
 
 <style>
    body {      

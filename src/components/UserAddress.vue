@@ -1,7 +1,7 @@
 <template>
    <form
    class="delivery" 
-   @submit.prevent="sumbitForm">
+   @submit.prevent="sumbitForm('Форма не готова', $event)">
       <h2 class="delivery__title">Информация для доставки</h2>
       <div class="form-control delivery__user"
       :class="{invalidName}">
@@ -54,7 +54,8 @@
 <script>
 export default {
    data() {
-      return {                 
+      return {   
+         userNameV: '',              
          userName: '',
          userNameValidation: 'pending',         
          userSity: '',
@@ -65,18 +66,17 @@ export default {
       }
    },
    methods: { 
-      sumbitForm: function() {
-         if(this.userAddressValidation == 'invalid' || 
-         this.userName == '' || 
-         this.userAddressValidation == 'invalid') {
-            return false;
-         }
-      },     
+      // sumbitForm() {
+      //    if(this.userAddressValidation == 'invalid' || 
+      //    this.userName == '' || 
+      //    this.userAddressValidation == 'invalid') {            
+      //    }
+      // },     
       validateInput() {         
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
          } else {
-            this.userNameValidation = 'valid'
+            this.userNameValidation = 'valid'           
          }
       },
       validateInputAddress() {
@@ -93,14 +93,30 @@ export default {
       },
       invalidAddress: function() {
          return this.userAddressValidation == 'invalid';
-      },      
+      },  
+         
    },
-   watch: {      
+   watch: {
+      userName: function() {
+         const reg = /[а-яА-Яa-zA-Z]/;
+         if(reg.test(this.userName)) {
+            this.userNameValidation = 'valid'
+         } else {
+            return this.userName = '';           
+         }
+      },
+      
+      userIndex: function() {
+         const regInd = /\d/;
+         if(regInd.test(this.userIndex)) {
+            this.userNameValidation = 'valid'
+         } else {
+            return this.userIndex = '';
+         }
+      },    
    }
 }
 </script>
-
-
 
 <style>
    .delivery {        

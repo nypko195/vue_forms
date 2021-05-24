@@ -18,7 +18,7 @@
       :class="{invalidCard}">
          <label for="user-card"
          class="payment__card-lbl pay-lbl">Номер карты</label>
-         <input type="nubmer"
+         <input type="text"
          class="payment__card-inp pay-inp"
          placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
          name="user-card"
@@ -31,7 +31,7 @@
          :class="{invalidInfo}">
             <label for="user-date"
             class="payment__info-lbl pay-lbl">Срок</label>
-            <input type="number"
+            <input type="text"
             class="payment__info-inp pay-inp"
             placeholder="MM/YY"
             name="user-date"
@@ -41,9 +41,10 @@
          </div>
          <div class="form__control"
          :class="{invalidInfo}">
-            <label for="user-cvv"
+            <label for="user-cvv"            
             class="payment__info-lbl pay-lbl">CVV</label>
-            <input type="number"
+            <input type="text"
+            maxlength="3"
             class="payment__info-inp pay-inp"
             name="user-cvv"
             id="user-cvv"
@@ -52,7 +53,7 @@
          </div>
       </div>
       <!-- <button class="payment__btn">Оплатить</button> -->
-      <router-link to="/thank" class="payment__btn">Оплатить</router-link>  
+      <router-link to="/thank" class="payment__btn" @click="home">Оплатить</router-link>  
    </form>
 </template>
 
@@ -91,7 +92,12 @@ export default {
          } else {
             this.userInfoValidation = 'valid';
          }
-      }
+      },
+      home() {
+         setTimeout(() => {
+      this.$router.push('/');
+   }, 3000);
+}
    },
    computed: {
       invalidPay() {
@@ -103,6 +109,41 @@ export default {
       invalidInfo() {
          return this.userInfoValidation == 'invalid';
       }
+   },
+   watch: {
+      userPay: function() {
+         const regPay = /[a-zA-Z]/;
+         if(regPay.test(this.userPay)) {
+            this.userPayValidation = 'valid';
+         } else {
+            this.userPay = '';
+         }
+      },
+      // userCard: function() {
+      //    const regCard = /[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}/;
+      //    if(regCard.test(this.userCard)) {
+      //       console.log(this.userCard);
+      //       this.userCardValidation = 'valid';
+      //    }  else {
+      //       this.userCard = '';
+      //    }
+      // },
+      userDate: function() {
+         const regDate = /\d/;
+         if(regDate.test(this.userDate)) {           
+            this.userInfoValidation = 'valid'
+         } else {
+            this.userDate = ''
+         }
+      },
+      userCvv: function() {
+         const regCvv = /^[0-9]{3}$/;
+         if(regCvv.test(this.userCvv) ) {
+            this.userInfoValidation = 'valid';
+         } else {
+            this.userCvv 
+         }
+      },      
    }
 }
 </script>

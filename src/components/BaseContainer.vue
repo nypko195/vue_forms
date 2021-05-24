@@ -5,7 +5,6 @@
 </template>
 
 <style scoped>
-
    section {
       height: 520px;
       width: 402px;
