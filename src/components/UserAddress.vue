@@ -1,5 +1,5 @@
 <template>
-   <form
+   <form   
    class="delivery" 
    @submit.prevent="sumbitForm('Форма не готова', $event)">
       <h2 class="delivery__title">Информация для доставки</h2>
@@ -47,8 +47,12 @@
          </div>          
       </div>
       <!-- <button class="delivery__btn"> Продолжить</button> -->
-      <router-link to="/payment" class="delivery__btn">Продолжить</router-link>
-   </form>
+      <router-link class="delivery__btn"
+      to="/payment"
+      tag="button"
+      :disabled="submitError"       
+      >Продолжить</router-link>
+   </form >
 </template>
 
 <script>
@@ -66,12 +70,7 @@ export default {
       }
    },
    methods: { 
-      // sumbitForm() {
-      //    if(this.userAddressValidation == 'invalid' || 
-      //    this.userName == '' || 
-      //    this.userAddressValidation == 'invalid') {            
-      //    }
-      // },     
+      
       validateInput() {         
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
@@ -88,13 +87,19 @@ export default {
       },       
    },
    computed: {
+      submitError: function() {
+         return this.userNameValidation == 'valid';
+      },
       invalidName: function() {
          return this.userNameValidation == 'invalid';
       },
       invalidAddress: function() {
          return this.userAddressValidation == 'invalid';
-      },  
-         
+      },
+      formSubmitError: function() {
+         return false;
+      }
+      
    },
    watch: {
       userName: function() {

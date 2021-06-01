@@ -53,7 +53,10 @@
          </div>
       </div>
       <!-- <button class="payment__btn">Оплатить</button> -->
-      <router-link to="/thank" class="payment__btn" @click="home">Оплатить</router-link>  
+      <router-link      
+      to="/thank" 
+      class="payment__btn" 
+      @click="home">Оплатить</router-link>  
    </form>
 </template>
 
@@ -69,6 +72,7 @@ export default {
          userDate: '',
          userCvv: '',
          userInfoValidation: 'pending',
+         // anyActivatesThisLink: false,
       }
    },
    methods: {             
