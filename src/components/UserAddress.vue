@@ -15,18 +15,19 @@
          @blur="validateInput"
          type="text" placeholder="ФИО">
       </div>
-      <div class="form-control delivery__address"
-      :class="{invalidAddress}">
+      <div class="form-control delivery__address">
          <label for="user-address"
          class="delivery__address-lbl dlvr-lbl">Адрес</label>
-         <input type="text"
+         <input type="text"         
          class="delivery__address-inp dlvr-inp"
+         :class="{invalidAddressCity}"
          name="sity"
          v-model="userSity"
          placeholder="Город"
-         @blur="validateInputAddress">
+         @blur="validateInputAddressCity">
          <input type="text"
          class="delivery__address-inp dlvr-inp"
+         :class="{invalidAddress}"
          name="address"
          v-model="userAddress"
          placeholder="Адрес"
@@ -34,43 +35,49 @@
          <div>     
          <input type="text"
          class="delivery__address-inp dlvr-inp"
+         :class="{invalidAddressCountry}"
          name="country"
          v-model="userCountry"
          placeholder="Страна"
-         @blur="validateInputAddress">
+         @blur="validateInputAddressCountry">
          <input type="text"
          class="delivery__address-inp dlvr-inp"
+         :class="{invalidAddressIndex}"
          name="index"
          v-model="userIndex"
          placeholder="Индекс"
-         @blur="validateInputAddress">
+         @blur="validateInputAddressIndex">
          </div>          
       </div>
-      <!-- <button class="delivery__btn"> Продолжить</button> -->
-      <router-link class="delivery__btn"
-      to="/payment"
-      tag="button"
-      :disabled="submitError"       
-      >Продолжить</router-link>
+      <button 
+      class="delivery__btn" 
+      @click="transitionPayment"
+      :disabled="formValidation"> Продолжить</button>     
    </form >
 </template>
 
 <script>
 export default {
    data() {
-      return {   
-         userNameV: '',              
+      return {                      
          userName: '',
          userNameValidation: 'pending',         
          userSity: '',
          userAddress: '',
          userCountry: '',
          userIndex: '',         
-         userAddressValidation: 'pending',         
+         userAddressValidCity: 'pending',  
+         userAddressValid: 'pending',
+         userAddressValidCountry: 'pending',  
+         userAddressValidIndex: 'pending',          
       }
    },
    methods: { 
-      
+      //событие перехода к оплате
+      transitionPayment() {
+         this.$router.push('/payment');
+      },
+      //проверка именни
       validateInput() {         
          if(this.userName === '') {
             this.userNameValidation = 'invalid';
@@ -78,30 +85,73 @@ export default {
             this.userNameValidation = 'valid'           
          }
       },
-      validateInputAddress() {
-         if(this.userSity === '' || this.userAddress === '' || this.userCountry === '' || this.userIndex === '') {
-            this.userAddressValidation = 'invalid';
+      //проверка города
+      validateInputAddressCity() {
+         if(this.userSity == '') {
+            this.userAddressValidCity = 'invalid';
          } else {
-            this.userAddressValidation = 'valid';
+            this.userAddressValidCity = 'valid';
          }
-      },       
-   },
-   computed: {
-      submitError: function() {
-         return this.userNameValidation == 'valid';
+      },  
+      //проверка адреса
+      validateInputAddress() {
+         if(this.userAddress == '') {
+            this.userAddressValid = 'invalid';
+         } else {
+            this.userAddressValid = 'valid';
+         }
       },
+      //проверка страны
+      validateInputAddressCountry(){
+         if(this.userCountry == '') {
+            this.userAddressValidCountry = 'invalid';
+         } else {
+            this.userAddressValidCountry = 'valid';
+         }
+      },
+      //проверка индекса
+      validateInputAddressIndex(){
+         if(this.userIndex == '') {
+            this.userAddressValidIndex = 'invalid';
+         } else {
+            this.userAddressValidIndex = 'valid';
+         }
+      },          
+   },
+   computed: { 
+      //проверка валидности ипутов для перехода 
+      formValidation: function() {
+         return this.userNameValidation == 'invalid' 
+         || this.userName == '' 
+         || this.userAddressValidCity == 'invalid'
+         || this.userSity === '' 
+         || this.userAddress === '' 
+         || this.userCountry === '' 
+         || this.userIndex === ''
+      },
+      //проверка для класса  
       invalidName: function() {
          return this.userNameValidation == 'invalid';
       },
-      invalidAddress: function() {
-         return this.userAddressValidation == 'invalid';
+      //проверка для класса 
+      invalidAddressCity: function() {
+         return this.userAddressValidCity == 'invalid'           
       },
-      formSubmitError: function() {
-         return false;
-      }
-      
+      //проверка для класса  
+      invalidAddress: function() {
+         return this.userAddressValid == 'invalid'           
+      },
+      //проверка для класса 
+      invalidAddressCountry: function() {
+         return this.userAddressValidCountry == 'invalid'           
+      },
+      //проверка для класса  
+      invalidAddressIndex: function() {
+         return this.userAddressValidIndex == 'invalid';
+      },           
    },
    watch: {
+      //фильтр ввода фио
       userName: function() {
          const reg = /[а-яА-Яa-zA-Z]/;
          if(reg.test(this.userName)) {
@@ -110,7 +160,7 @@ export default {
             return this.userName = '';           
          }
       },
-      
+      //фильтр для индекса
       userIndex: function() {
          const regInd = /\d/;
          if(regInd.test(this.userIndex)) {
@@ -157,7 +207,10 @@ export default {
       padding: 10px;      
    } 
    .form-control.invalidName .dlvr-inp,
-   .form-control.invalidAddress .dlvr-inp {
+   .invalidAddressCity,
+   .invalidAddress,
+   .invalidAddressCountry,
+   .invalidAddressIndex {
       border: 2px solid red;
    }   
    .delivery__address .dlvr-inp:first-child { 

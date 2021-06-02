@@ -2,23 +2,23 @@
    <form class="payment" 
    @submit.prevent="sumbitForm">
       <h2 class="payment__title">Оплата</h2>
-      <div class="form__control payment__user"
-      :class="{invalidPay}">
+      <div class="form__control payment__user">
          <label for="user-pay"
          class="payment__user-lbl pay-lbl">Имя на карте</label>
          <input type="text"
          placeholder="Konstantin Ivanov"
          class="payment__user-inp pay-inp"
+         :class="{invalidPay}"
          name="user-pay"
          id="user-pay"
          v-model="userPay"
          @blur="payValidation">
       </div>
-      <div class="form__control payment__card"
-      :class="{invalidCard}">
+      <div class="form__control payment__card">
          <label for="user-card"
          class="payment__card-lbl pay-lbl">Номер карты</label>
          <input type="text"
+         :class="{invalidCard}"
          class="payment__card-inp pay-inp"
          placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
          name="user-card"
@@ -26,53 +26,52 @@
          v-model="userCard"
          @blur="cardValidation">         
       </div>
-      <div class="payment__info"      >
-         <div class="form__control"
-         :class="{invalidInfo}">
+      <div class="payment__info">
+         <div class="form__control">
             <label for="user-date"
             class="payment__info-lbl pay-lbl">Срок</label>
             <input type="text"
             class="payment__info-inp pay-inp"
+            :class="{invalidTerm}"
             placeholder="MM/YY"
             name="user-date"
             id="user-date"
             v-model="userDate"
-            @blur="infoValidation">
+            @blur="termValidation">
          </div>
-         <div class="form__control"
-         :class="{invalidInfo}">
+         <div class="form__control">
             <label for="user-cvv"            
             class="payment__info-lbl pay-lbl">CVV</label>
             <input type="text"
             maxlength="3"
             class="payment__info-inp pay-inp"
+            :class="{invalidCvv}"
             name="user-cvv"
             id="user-cvv"
             v-model="userCvv"
-            @blur="infoValidation">
+            @blur="cvvValidation">
          </div>
       </div>
-      <!-- <button class="payment__btn">Оплатить</button> -->
-      <router-link      
-      to="/thank" 
-      class="payment__btn" 
-      @click="home">Оплатить</router-link>  
+      <button 
+      class="payment__btn"
+      @click="home"
+      :disabled="formValidation">Оплатить</button>
+      
    </form>
 </template>
 
 <script>
 export default {
    data() {
-      return {
-         form: '',
+      return {         
          userPay: '',
          userPayValidation: 'pending',
          userCard: '',
          userCardValidation: 'pending',
          userDate: '',
+         userTermValidation: 'pending',
          userCvv: '',
-         userInfoValidation: 'pending',
-         // anyActivatesThisLink: false,
+         userCvvValidation: 'pending',        
       }
    },
    methods: {             
@@ -90,28 +89,50 @@ export default {
             this.userCardValidation = 'valid';
          }
       },
-      infoValidation() {
-         if(this.userDate == '' || this.userCvv == '') {
-            this.userInfoValidation = 'invalid';
+      termValidation() {
+         if(this.userDate == '') {
+            this.userTermValidation = 'invalid';
          } else {
-            this.userInfoValidation = 'valid';
+            this.userTermValidation = 'valid';
+         }
+      },
+      cvvValidation() {
+         if(this.userCvv == '') {
+            this.userCvvValidation = 'invalid';
+         } else {
+            this.userCvvValidation = 'valid';
          }
       },
       home() {
+      this.$router.push('/thank');
          setTimeout(() => {
       this.$router.push('/');
-   }, 3000);
+   }, 1000);
 }
    },
    computed: {
+      formValidation: function() {
+         return this.userPayValidation == 'invalid' 
+         || this.userCardValidation == 'invalid'
+         || this.userTermValidation == 'invalid'
+         || this.userTermValidation == 'invalid'
+         || this.userCvvValidation == 'invalid'
+         || this.userPay == ''
+         || this.userCard == ''
+         || this.userDate == ''
+         || this.userCvv == ''
+      },
       invalidPay() {
          return this.userPayValidation == 'invalid';
       },
       invalidCard() {
          return this.userCardValidation == 'invalid';
       },
-      invalidInfo() {
-         return this.userInfoValidation == 'invalid';
+      invalidTerm() {
+         return this.userTermValidation == 'invalid';
+      },
+      invalidCvv() {
+         return this.userCvvValidation == 'invalid';
       }
    },
    watch: {
@@ -133,19 +154,19 @@ export default {
       //    }
       // },
       userDate: function() {
-         const regDate = /\d/;
+         const regDate = /\d([0-9]2)(\/)([0-9]2)/;//не работает.
          if(regDate.test(this.userDate)) {           
-            this.userInfoValidation = 'valid'
+            this.userTermValidation = 'valid'
          } else {
             this.userDate = ''
          }
       },
       userCvv: function() {
-         const regCvv = /^[0-9]{3}$/;
+         const regCvv = /\d/;
          if(regCvv.test(this.userCvv) ) {
-            this.userInfoValidation = 'valid';
+            this.userCvvValidation = 'valid';
          } else {
-            this.userCvv 
+            return this.userCvv = ''; 
          }
       },      
    }
@@ -210,9 +231,10 @@ export default {
       display: flex;
       flex-direction: row;            
    }
-   .form__control.invalidPay .pay-inp,
-   .form__control.invalidCard .pay-inp,
-   .form__control.invalidInfo .pay-inp {
+   .invalidPay,
+   .invalidCard,
+   .invalidTerm,
+   .invalidCvv {
       border: 2px solid red;
    }   
 </style>
