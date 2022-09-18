@@ -3,60 +3,86 @@
    @submit.prevent="sumbitForm">
       <h2 class="payment__title">Оплата</h2>
       <div class="form__control payment__user">
-         <label for="user-pay"
-         class="payment__user-lbl pay-lbl">Имя на карте</label>
-         <input type="text"
-         placeholder="Konstantin Ivanov"
-         class="payment__user-inp pay-inp"
-         :class="{invalidPay}"
-         name="user-pay"
-         id="user-pay"
-         v-model="userPay"
-         @blur="payValidation">
+         <label 
+            for="user-pay"
+            class="payment__user-lbl pay-lbl"
+         >
+            Имя на карте
+         </label>
+         <input 
+            type="text"
+            placeholder="Konstantin Ivanov"
+            class="payment__user-inp pay-inp"
+            :class="{invalidPay}"
+            name="user-pay"
+            id="user-pay"
+            v-model="userPay"
+            @blur="payValidation"
+         />
       </div>
       <div class="form__control payment__card">
-         <label for="user-card"
-         class="payment__card-lbl pay-lbl">Номер карты</label>
-         <input type="text"
-         :class="{invalidCard}"
-         class="payment__card-inp pay-inp"
-         placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
-         name="user-card"
-         id="user-card"
-         v-model="userCard"
-         @blur="cardValidation">         
+         <label 
+            for="user-card"
+            class="payment__card-lbl pay-lbl"
+         >
+            Номер карты
+         </label>
+         <input 
+            type="text"
+            :class="{invalidCard}"
+            class="payment__card-inp pay-inp"
+            placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+            name="user-card"
+            id="user-card"
+            v-model="userCard"
+            @blur="cardValidation"
+         />         
       </div>
       <div class="payment__info">
          <div class="form__control">
-            <label for="user-date"
-            class="payment__info-lbl pay-lbl">Срок</label>
-            <input type="text"
-            class="payment__info-inp pay-inp"
-            :class="{invalidTerm}"
-            placeholder="MM/YY"
-            name="user-date"
-            id="user-date"
-            v-model="userDate"
-            @blur="termValidation">
+            <label 
+               for="user-date"
+               class="payment__info-lbl pay-lbl"
+            >
+               Срок
+            </label>
+            <input 
+               type="text"
+               class="payment__info-inp pay-inp"
+               :class="{invalidTerm}"
+               placeholder="MM/YY"
+               name="user-date"
+               id="user-date"
+               v-model="userDate"
+               @blur="termValidation"
+            />
          </div>
          <div class="form__control">
-            <label for="user-cvv"            
-            class="payment__info-lbl pay-lbl">CVV</label>
-            <input type="text"
-            maxlength="3"
-            class="payment__info-inp pay-inp"
-            :class="{invalidCvv}"
-            name="user-cvv"
-            id="user-cvv"
-            v-model="userCvv"
-            @blur="cvvValidation">
+            <label 
+               for="user-cvv"            
+               class="payment__info-lbl pay-lbl"
+            >
+               CVV
+            </label>
+            <input 
+               type="text"
+               maxlength="3"
+               class="payment__info-inp pay-inp"
+               :class="{invalidCvv}"
+               name="user-cvv"
+               id="user-cvv"
+               v-model="userCvv"
+               @blur="cvvValidation"
+            />
          </div>
       </div>
       <button 
-      class="payment__btn"
-      @click="home"
-      :disabled="formValidation">Оплатить</button>
-      
+         class="payment__btn"
+         @click="home"
+         :disabled="formValidation"
+      >
+         Оплатить
+      </button>
    </form>
 </template>
 

@@ -3,56 +3,78 @@
    class="delivery" 
    @submit.prevent="sumbitForm('Форма не готова', $event)">
       <h2 class="delivery__title">Информация для доставки</h2>
-      <div class="form-control delivery__user"
-      :class="{invalidName}">
-         <label for="user-name"
-         class="delivery__user-lbl dlvr-lbl">Получатель</label>
+      <div 
+         class="form-control delivery__user"
+         :class="{invalidName}"
+      >
+         <label 
+            for="user-name"
+            class="delivery__user-lbl dlvr-lbl"
+         >
+            Получатель
+         </label>
          <input
-         class="delivery__user-inp dlvr-inp"
-         id="user-name"
-         name="user-name"
-         v-model.trim="userName"
-         @blur="validateInput"
-         type="text" placeholder="ФИО">
+            class="delivery__user-inp dlvr-inp"
+            id="user-name"
+            name="user-name"
+            v-model.trim="userName"
+            @blur="validateInput"
+            type="text" placeholder="ФИО"
+         />
       </div>
       <div class="form-control delivery__address">
-         <label for="user-address"
-         class="delivery__address-lbl dlvr-lbl">Адрес</label>
-         <input type="text"         
-         class="delivery__address-inp dlvr-inp"
-         :class="{invalidAddressCity}"
-         name="sity"
-         v-model="userSity"
-         placeholder="Город"
-         @blur="validateInputAddressCity">
-         <input type="text"
-         class="delivery__address-inp dlvr-inp"
-         :class="{invalidAddress}"
-         name="address"
-         v-model="userAddress"
-         placeholder="Адрес"
-         @blur="validateInputAddress"> 
+         <label 
+            for="user-address"
+            class="delivery__address-lbl dlvr-lbl"
+         >
+            Адрес
+         </label>
+         <input 
+            type="text"         
+            class="delivery__address-inp dlvr-inp"
+            :class="{invalidAddressCity}"
+            name="sity"
+            v-model="userSity"
+            placeholder="Город"
+            @blur="validateInputAddressCity"
+         />
+         <input 
+            type="text"
+            class="delivery__address-inp dlvr-inp"
+            :class="{invalidAddress}"
+            name="address"
+            v-model="userAddress"
+            placeholder="Адрес"
+            @blur="validateInputAddress"
+         /> 
          <div>     
-         <input type="text"
-         class="delivery__address-inp dlvr-inp"
-         :class="{invalidAddressCountry}"
-         name="country"
-         v-model="userCountry"
-         placeholder="Страна"
-         @blur="validateInputAddressCountry">
-         <input type="text"
-         class="delivery__address-inp dlvr-inp"
-         :class="{invalidAddressIndex}"
-         name="index"
-         v-model="userIndex"
-         placeholder="Индекс"
-         @blur="validateInputAddressIndex">
+            <input 
+               type="text"
+               class="delivery__address-inp dlvr-inp"
+               :class="{invalidAddressCountry}"
+               name="country"
+               v-model="userCountry"
+               placeholder="Страна"
+               @blur="validateInputAddressCountry"
+            />
+            <input 
+               type="text"
+               class="delivery__address-inp dlvr-inp"
+               :class="{invalidAddressIndex}"
+               name="index"
+               v-model="userIndex"
+               placeholder="Индекс"
+               @blur="validateInputAddressIndex"
+            />
          </div>          
       </div>
       <button 
-      class="delivery__btn" 
-      @click="transitionPayment"
-      :disabled="formValidation"> Продолжить</button>     
+         class="delivery__btn" 
+         @click="transitionPayment"
+         :disabled="formValidation"
+      >
+         Продолжить
+      </button>     
    </form >
 </template>
 
